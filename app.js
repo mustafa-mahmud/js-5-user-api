@@ -111,7 +111,7 @@ function totalMoney() {
 
 function resetAll() {
   data = [...resetData];
-  console.log(resetData);
+
   display();
 }
 
