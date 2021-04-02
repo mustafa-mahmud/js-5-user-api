@@ -18,12 +18,16 @@ let status = true;
 async function fetchData(url) {
   const response = await fetch(url);
   const {
-    results: [arr],
+    results: [
+      {
+        name: { title, first, last },
+        picture: { large },
+      },
+    ],
   } = await response.json();
 
-  const { title, first, last } = arr.name;
-
   data.push({
+    image: large,
     name: `${title} ${first} ${last}`,
     money: Math.floor(Math.random() * 1000000),
   });
@@ -50,8 +54,9 @@ function display() {
 		${data
       .map((el) => {
         return `<p>
-				<span class="name">${el.name}</span> 
-				<span class="money">$${currencyFormate(el.money)}</span>
+						<img src="${el.image}" alt="${el.name}" />
+						<span class="name">${el.name}</span> 
+						<span class="money">$${currencyFormate(el.money)}</span>
 				</p>`;
       })
       .join('')}
@@ -74,6 +79,26 @@ function sortMoney() {
   display();
 }
 
+function doubleMoney() {
+  data = data.map((el) => ({
+    image: el.image,
+    name: el.name,
+    money: el.money * 2,
+  }));
+
+  display();
+}
+
+function millionierPerson() {
+  const ckMillionior = data.filter((el) => el.money >= 1000000);
+
+  if (ckMillionior.length > 0) data = ckMillionior;
+
+  display();
+}
+
 //Events==========================
 add.addEventListener('click', () => fetchData(url));
 sort.addEventListener('click', sortMoney);
+double.addEventListener('click', doubleMoney);
+millionier.addEventListener('click', millionierPerson);

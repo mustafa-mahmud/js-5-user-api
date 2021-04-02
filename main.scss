@@ -84,20 +84,28 @@ body {
 			p {
 				background-color: #fff;
 				box-shadow: 2px 5px 5px rgba($color: #000000, $alpha: 0.6);
-				padding: 1rem 2rem;
 				margin-bottom: 1.5rem;
+				padding-right: 1rem;
+
 
 				display: flex;
-				justify-content: space-between;
+				align-items: center;
+
+				img {
+					width: 4rem;
+					height: 4rem;
+					margin-right: 1rem;
+				}
 
 				.name {
-					font-size: 2rem;
+					font-size: 1.8rem;
 					font-weight: bold;
 					margin-right: 2rem;
 				}
 
 				.money {
-					font-size: 2rem;
+					font-size: 1.8rem;
+					margin-left: auto;
 				}
 
 			}
