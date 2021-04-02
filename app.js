@@ -1,13 +1,15 @@
 'use strict';
 
 const container = document.querySelector('.container');
-const add = document.querySelector('.add');
-const sort = document.querySelector('.sort');
-const double = document.querySelector('.double');
-const millionier = document.querySelector('.millionier');
-const reset = document.querySelector('.reset');
-const info = document.querySelector('.info');
-const total = document.querySelector('.total');
+const infoEl = document.querySelector('.info');
+const balanceEl = document.querySelector('.balance i');
+
+const addBtn = document.querySelector('.add');
+const sortBtn = document.querySelector('.sort');
+const doubleBtn = document.querySelector('.double');
+const millionierBtn = document.querySelector('.millionier');
+const resetBtn = document.querySelector('.reset');
+const totalBtn = document.querySelector('.total');
 
 const url = 'https://randomuser.me/api/';
 let data = [];
@@ -33,7 +35,8 @@ async function fetchData(url) {
   });
 
   if (status && data.length === 4) {
-    resetData = data;
+    resetData = [...data];
+    status = false;
   }
 
   display();
@@ -62,7 +65,7 @@ function display() {
       .join('')}
 	`;
 
-  info.innerHTML = output;
+  infoEl.innerHTML = output;
 }
 
 function currencyFormate(money) {
@@ -73,7 +76,7 @@ function currencyFormate(money) {
 
 function sortMoney() {
   data = data.sort((a, b) => {
-    return a.money - b.money;
+    return b.money - a.money;
   });
 
   display();
@@ -97,8 +100,25 @@ function millionierPerson() {
   display();
 }
 
+function totalMoney() {
+  const onlyMoneys = data.map((el) => el.money);
+  const totalMoney = onlyMoneys.reduce((a, b) => a + b);
+
+  const totalCurrency = currencyFormate(totalMoney);
+
+  balanceEl.textContent = '$' + totalCurrency;
+}
+
+function resetAll() {
+  data = [...resetData];
+  console.log(resetData);
+  display();
+}
+
 //Events==========================
-add.addEventListener('click', () => fetchData(url));
-sort.addEventListener('click', sortMoney);
-double.addEventListener('click', doubleMoney);
-millionier.addEventListener('click', millionierPerson);
+addBtn.addEventListener('click', () => fetchData(url));
+sortBtn.addEventListener('click', sortMoney);
+doubleBtn.addEventListener('click', doubleMoney);
+millionierBtn.addEventListener('click', millionierPerson);
+totalBtn.addEventListener('click', totalMoney);
+resetBtn.addEventListener('click', resetAll);

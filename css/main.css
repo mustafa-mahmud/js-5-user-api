@@ -127,7 +127,7 @@ body {
   margin-left: auto;
 }
 
-.container .content .right .total {
+.container .content .right .balance {
   position: absolute;
   width: 100%;
   bottom: 1rem;
@@ -141,4 +141,9 @@ body {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+}
+
+.container .content .right .balance i {
+  color: #fff;
+  border-bottom: 1px solid;
 }
